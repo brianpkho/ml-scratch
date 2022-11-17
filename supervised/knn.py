@@ -67,18 +67,18 @@ class PointGenerator:
         return [random.randint(1, k) for _ in range(self.n)]
 
 
-if __name__ == "__main__":
-    generator = PointGenerator(n=10, dimension=3)
-    k = 2
-    # fit training data
-    train_x = generator.generate_points(-1000, 1000)
-    train_y = generator.generate_labels(k=k)
-    print(train_x, train_y)
+# if __name__ == "__main__":
+#     generator = PointGenerator(n=10, dimension=3)
+#     k = 2
+#     # fit training data
+#     train_x = generator.generate_points(-1000, 1000)
+#     train_y = generator.generate_labels(k=k)
+#     print(train_x, train_y)
 
-    # Define KNN model
-    knn = KNearestNeighbors(k=k)
-    knn.fit(train_x, train_y)
+#     # Define KNN model
+#     knn = KNearestNeighbors(k=k)
+#     knn.fit(train_x, train_y)
 
-    # Test model
-    test_x = generator.generate_points(-1000, 1000)
-    print(test_x, knn.predict(test_x))
+#     # Test model
+#     test_x = generator.generate_points(-1000, 1000)
+#     print(test_x, knn.predict(test_x))

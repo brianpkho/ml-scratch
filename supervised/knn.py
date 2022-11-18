@@ -56,6 +56,19 @@ class PointGenerator:
         return [random.randint(1, k) for _ in range(self.n)]
 
 
+class ClassifierTester:
+    @staticmethod
+    def accuracy(y_true, y_pred):
+        assert len(y_true) == len(
+            y_pred
+        ), f"Labelled predictions dimension must be the same; instead got {len(y_true)}, {len(y_pred)}"
+        accuracy = 0
+        for ytrue_i, ypred_i in zip(y_true, y_pred):
+            accuracy += ytrue_i == ypred_i
+
+        return accuracy / len(y_true)
+
+
 if __name__ == "__main__":
     generator = PointGenerator(n=10, dimension=3)
     k = 2
@@ -69,5 +82,9 @@ if __name__ == "__main__":
     knn.fit(train_x, train_y)
 
     # Test model
-    test_x = generator.generate_points(-1000, 1000)
-    print(test_x, knn.predict(test_x))
+    train_x = generator.generate_points(-1000, 1000)
+    predicted_y = knn.predict(train_x)
+    print(predicted_y)
+
+    # TestClassifier
+    print(f"Accuracy: {ClassifierTester.accuracy(y_true=train_y, y_pred=predicted_y)}")
